@@ -6,5 +6,9 @@ Vue.use({
     Vue.prototype.$http = axios.create({
       baseURL: 'https://learning-vue-a81ea-default-rtdb.firebaseio.com/'
     });
+
+    Vue.prototype.$http.interceptors.response.use(res => {
+      console.log('response: ', res);
+    });
   }
 })

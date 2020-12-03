@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export default {
   namespaced: true,
   state: {
@@ -12,12 +14,11 @@ export default {
   },
   mutations: {
     setAll(state, list) {
-      // console.log('chamou esse cara', state, list);
       state.list = list;
     },
-    add(state, nome) {
+    add(state) {
       const newTodoId = state.list[state.list.length - 1].id + 1;
-      const newTodo = { id: newTodoId, nome };
+      const newTodo = { id: newTodoId, ...state.data };
       state.list.push(newTodo);
     },
     delete(state, index) {
@@ -27,34 +28,48 @@ export default {
   getters: {
     todos(state) {
       return state.list;
+    },
+    test(state) {
+      console.log(state.list);
     }
   },
   actions: {
-    getAll({commit}) {
+    getAll({ commit }) {
+
+      axios.get('https://learning-vue-a81ea-default-rtdb.firebaseio.com/todo.json')
+        .then((response) => {
+          commit('setAll', Object.values(response.data));
+        })
+
+
+      // console.log(context);
       // console.log(state);
       // this.$http.post('todo.json', {descrption: 'teste'});
-      commit('setAll', [{id: 1,description: 'Teste'}]);
+      // commit('setAll', [{ id: 1, description: 'Teste' }]);
+      // axios.get('todo.json').then((v) => console.log(v));
+      // this.$http.get('todo.json').then((rsponse) => console.log(rsponse));
 
-      const vm = this._vm;
-
-      console.log(vm.$root);
-
-      
-      
-    // this.$http.get('todo.json').then((rsponse) => console.log(rsponse));
-      
     },
     add(context, payload) {
 
-      this.$http 
+      this.$http
         .post('todo.json', payload)
         .then(() => context.commit('add', payload));
 
     },
     delete(context, index) {
+
       if (confirm('Deseja realmente excluir esta tarefa?')) {
-        context.commit('delete', index);
+
+        axios.get('https://learning-vue-a81ea-default-rtdb.firebaseio.com/todo.json/${}')
+          .then(() => {
+            context.commit('delete', index);
+          })
+
       }
+
+
+
     }
   }
 }
