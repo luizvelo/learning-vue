@@ -1,6 +1,5 @@
 <template>
   <v-container id="todo" fluid tag="section">
-    <!-- <TodoForm /> -->
     <router-view/>
     <TodoList />
   </v-container>

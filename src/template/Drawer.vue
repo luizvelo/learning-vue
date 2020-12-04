@@ -35,19 +35,11 @@
     <v-divider class="mb-2" />
 
     <v-list expand nav>
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
-      <div />
-
       <template v-for="(item, i) in computedItems">
-        <base-item-group v-if="item.children" :key="`group-${i}`" :item="item">
-          <!--  -->
-        </base-item-group>
+        <base-item-group v-if="item.children" :key="`group-${i}`" :item="item"></base-item-group>
 
         <base-item v-else :key="`item-${i}`" :item="item" />
       </template>
-
-      <div />
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -77,6 +69,11 @@ export default {
         icon: "mdi-format-list-bulleted-square",
         title: "todos",
         to: "/todo",
+      },
+      {
+        icon: "mdi-alien-outline",
+        title: "Area 51",
+        to: "/area",
       },
     ],
   }),

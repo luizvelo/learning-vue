@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routesTodo from './routerTodo';
 import routesDashboard from './routerDashboard';
+import routesArea from './routerArea';
 
 Vue.use(VueRouter)
 
@@ -11,6 +12,7 @@ const router = new VueRouter({
   routes: [
     ...routesTodo,
     ...routesDashboard,
+    ...routesArea,
     {
       path: '*',
       redirect: '/dashboard'
