@@ -1,7 +1,5 @@
 <template>
   <v-container id="todo-form" class="grey lighten-5">
-
-    
     <v-row>
       <v-col align="end">
         <v-btn

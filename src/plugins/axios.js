@@ -8,7 +8,6 @@ export const http = axios.create({
 Vue.use({
   install(Vue) {
     Vue.prototype.$http = http;
-
     Vue.prototype.$http.interceptors.request.use(req => {
       return req;
     });

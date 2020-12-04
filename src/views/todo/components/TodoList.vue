@@ -2,25 +2,36 @@
   <v-container id="todo-list">
     <v-row align="end">
       <v-col align="end">
-        
-        <v-btn
-          color="success"
-          @click="$router.push('/todo/add')"
+        <v-btn color="success" @click="$router.push('/todo/add')"
           >Adicionar</v-btn
         >
       </v-col>
     </v-row>
     <v-data-table
-          :headers="headers"
-          :items="todoList"
-          :items-per-page="5"
-          class="elevation-1"
+      :headers="headers"
+      :items="todoList"
+      :items-per-page="10"
+      class="elevation-1"
+    >
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon
+          color="warning"
+          small
+          class="mr-2"
+          @click="$router.push(`todo/${item.id}/edit`)"
         >
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon color="warning" small class="mr-2" @click="$router.push(`todo/${item.id}/edit`)"> mdi-pencil </v-icon>
-            <v-icon color="error" small @click="excluir(item)"> mdi-delete </v-icon>
-          </template>
-        </v-data-table>
+          mdi-pencil
+        </v-icon>
+        <v-icon color="error" small @click="excluir(item)"> mdi-delete </v-icon>
+      </template>
+
+      <template v-slot:[`item.checkbox`]="{ item }">
+        <v-simple-checkbox
+          color="primary"
+          v-model="item.completed"
+        ></v-simple-checkbox>
+      </template>
+    </v-data-table>
   </v-container>
 </template>
 
@@ -32,6 +43,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "", value: "checkbox", sortable: false },
         {
           text: "ID",
           align: "start",
@@ -56,13 +68,12 @@ export default {
   },
   methods: {
     ...mapActions("todo", {
-      getAll: 'getAll',
-      add: 'add',
-      excluir: 'delete',
-    }),
-    getTodos() {
-      // this.$http.get('todo.json').then((response) => console.log(response.data));
-    },
+      edit: "edit",
+      getAll: "getAll",
+      add: "add",
+      save: "save",
+      excluir: "delete",
+    })
   },
 };
 </script>

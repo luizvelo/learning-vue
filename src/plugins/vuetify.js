@@ -2,8 +2,13 @@ import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import i18n from '@/i18n'
 import '@/sass/overrides.sass'
+import { Ripple } from 'vuetify/lib/directives'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  directives: {
+    Ripple
+  }
+})
 
 const theme = {
   primary: '#4CAF50',

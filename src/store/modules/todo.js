@@ -41,12 +41,10 @@ export default {
     async save({ commit, dispatch, state }) {
       const method = state.data.id ? `patch` : `post`;
       const finalUrl = state.data.id ? `${state.data.id}.json` : `.json`
-
       if (!state.data.description) { 
         alert(`A descricao deve ser informado`)
         return
       }
-
       const response = await http[method](`todo/${finalUrl}`, state.data)
       await commit(state.data.id ? 'setTodo' : `add`, { 
         id: !state.data.id ? response.data.name : state.data.id, 
