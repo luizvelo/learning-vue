@@ -1,33 +1,27 @@
 <template>
   <v-container id="todo-form" class="grey lighten-5">
+
+    
     <v-row>
       <v-col align="end">
         <v-btn
-          v-if="!showForm"
-          color="primary"
-          @click="
-            showForm = true;
-            title = 'Adicionar todo';
-          "
-          >Adicionar</v-btn
-        >
-        <v-btn
-          color="primary"
-          @click="$router.push('/todo')"
+          color="info"
+          @click="save();$router.push('/todo')"
           >Salvar</v-btn
         >
         <v-btn
           color="error"
-          @click="$router.push('/todo')"
+          @click="clearState();$router.push('/todo')"
         >
           Cancelar
         </v-btn>
       </v-col>
     </v-row>
 
-    <v-row v-if="showForm">
+    <v-row>
       <v-col cols="3">
         <v-text-field
+          v-model="todo.description"
           label="Descrição"
           placeholder="Informe a descrição"
         ></v-text-field>
@@ -35,22 +29,12 @@
 
       <v-col cols="3">
         <v-text-field
-          label="Descrição"
-          placeholder="Informe a descrição"
+          v-model="todo.priority"
+          label="Prioridade"
+          placeholder="Informe a prioridade"
         ></v-text-field>
       </v-col>
     </v-row>
-
-    <!-- <v-row align="center">
-      <v-btn
-        :loading="loading"
-        :disabled="loading"
-        color="primary"
-        @click="loader = 'loading'"
-      >
-        Novo
-      </v-btn>
-    </v-row> -->
   </v-container>
 </template>
 
@@ -58,16 +42,29 @@
 import { mapActions } from 'vuex';
 
 export default {
+  props: ['id'],
   name: "TodoForm",
   data() {
     return {
-      show: false,
+      msg: '',
       title: "Lista de tarefas",
       loader: null,
       loading: false,
     };
   },
-  created() {},
+  computed: {
+    todo: {
+      get() {
+        return this.$store.state.todo.data;
+      },
+      set(todo) {
+        this.$store.commit('setTodo', todo);
+      }
+    }
+  },
+  created() {
+    this.getById(this.id);
+  },
   watch: {
     loader() {
       const l = this.loader;
@@ -78,16 +75,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('', []),
-    showForm() {
-      this.show = true;
-      this.title = 'Adicionar todo';
-    },
-    salvar() {
-      this.show = false;
-      this.title = 'Lista de tarefas'
-    }
-
+    ...mapActions('todo', ['save', 'getById', 'clearState']),
   },
 };
 </script>

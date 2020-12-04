@@ -1,19 +1,27 @@
 <template>
-  <div id="todo-list">
+  <v-container id="todo-list">
+    <v-row align="end">
+      <v-col align="end">
+        
+        <v-btn
+          color="success"
+          @click="$router.push('/todo/add')"
+          >Adicionar</v-btn
+        >
+      </v-col>
+    </v-row>
     <v-data-table
-      :headers="headers"
-      :items="todoList"
-      :items-per-page="5"
-      class="elevation-1"
-    >
-      <template v-slot:top></template>
-
-      <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small    class="mr-2" @click="edit(item)"> mdi-pencil </v-icon>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-      </template>
-    </v-data-table>
-  </div>
+          :headers="headers"
+          :items="todoList"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon color="warning" small class="mr-2" @click="$router.push(`todo/${item.id}/edit`)"> mdi-pencil </v-icon>
+            <v-icon color="error" small @click="excluir(item)"> mdi-delete </v-icon>
+          </template>
+        </v-data-table>
+  </v-container>
 </template>
 
 <script>
@@ -40,7 +48,6 @@ export default {
   },
   created() {
     this.getAll();
-    // this.getTodos();
   },
   computed: {
     ...mapGetters("todo", {
@@ -48,10 +55,11 @@ export default {
     }),
   },
   methods: {
-    ...mapActions("todo", ["getAll", "delete"]),
-    edit(data) {
-      this.$router.push(`todo/${data.id}/edit`);
-    },
+    ...mapActions("todo", {
+      getAll: 'getAll',
+      add: 'add',
+      excluir: 'delete',
+    }),
     getTodos() {
       // this.$http.get('todo.json').then((response) => console.log(response.data));
     },
