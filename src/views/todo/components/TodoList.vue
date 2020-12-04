@@ -13,9 +13,18 @@
       :items-per-page="10"
       class="elevation-1"
     >
+      <template v-slot:[`item.description`]="{ item }">
+        <span v-bind:class="{ 'text-decoration-line-through': item.completed }"
+          >{{ item.description }}
+        </span>
+      </template>
+
+      <template v-slot:[`item.createdAt`]="{ item }">
+        <span>{{ item.createdAt | dateFormat }}</span>
+      </template>
+
       <template v-slot:[`item.actions`]="{ item }">
         <v-icon
-          color="warning"
           small
           class="mr-2"
           @click="$router.push(`todo/${item.id}/edit`)"
@@ -25,8 +34,18 @@
         <v-icon color="error" small @click="excluir(item)"> mdi-delete </v-icon>
       </template>
 
+      <template v-slot:[`item.priority`]="{ item }">
+        <v-chip :color="getColor(item)" dark>
+          {{ item.priority }}
+        </v-chip>
+      </template>
+
       <template v-slot:[`item.checkbox`]="{ item }">
         <v-simple-checkbox
+          @click="
+            edit(item);
+            save();
+          "
           color="primary"
           v-model="item.completed"
         ></v-simple-checkbox>
@@ -44,16 +63,9 @@ export default {
     return {
       headers: [
         { text: "", value: "checkbox", sortable: false },
-        {
-          text: "ID",
-          align: "start",
-          sortable: false,
-          value: "id",
-        },
+        { text: "Prioridade", value: "priority" },
         { text: "Descrição", value: "description" },
         { text: "Criado em", value: "createdAt" },
-        { text: "Prioridade", value: "priority" },
-        { text: "Completo", value: "completed" },
         { text: "", value: "actions", sortable: false },
       ],
     };
@@ -73,7 +85,18 @@ export default {
       add: "add",
       save: "save",
       excluir: "delete",
-    })
+    }),
+    getColor(todo) {
+      if (todo.priority === "Alta") {
+        return "red";
+      } else if (todo.priority == "Media") {
+        return "orange";
+      } else if (todo.priority === "Normal") {
+        return "info ";
+      } else if (todo.priority === "Baixa") {
+        return "green ";
+      }
+    },
   },
 };
 </script>
