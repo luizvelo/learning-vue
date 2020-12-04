@@ -3,10 +3,7 @@ import { http } from '../../plugins/axios';
 export default {
   namespaced: true,
   state: {
-    data: {
-      completed: false,
-      createdAt: new Date()
-    },
+    data: {},
     priorities: [
       { label: 'Alta', color: 'red' },
       { label: 'Média', color: 'orange' },
@@ -40,7 +37,7 @@ export default {
   actions: {
     clearState({ commit }) { commit('clearState') },
     async getAll({ commit }) {
-      const response = await http.get('todo.json')
+      const response = await http.get('todo.json?orderBy="createdAt"')
       commit('setAll', Object.values(response.data || []))
     },
     async getById({ commit, state }, id) {

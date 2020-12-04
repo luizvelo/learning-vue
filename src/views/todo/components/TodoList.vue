@@ -89,7 +89,7 @@ export default {
     getColor(todo) {
       if (todo.priority === "Alta") {
         return "red";
-      } else if (todo.priority == "Media") {
+      } else if (todo.priority == "Média") {
         return "orange";
       } else if (todo.priority === "Normal") {
         return "info ";

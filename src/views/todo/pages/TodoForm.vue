@@ -1,5 +1,5 @@
 <template>
-  <v-container id="todo-form" class="grey lighten-5">
+  <v-container id="todo-form" class="white">
     <v-row>
       <v-col cols="5">
         <v-text-field
@@ -22,11 +22,8 @@
       <v-col cols="8">
         <v-textarea
           v-model="todo.content"
-          rows="2"
+          rows="2T"
           label="Informações referente a tarefa"
-          value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-          hint="Hint text"
-          no-resize="true"
         ></v-textarea>
       </v-col>
     </v-row>
