@@ -3,6 +3,7 @@ import { http } from '../../plugins/axios';
 export default {
   namespaced: true,
   state: {
+    showAdd: true,
     data: {},
     priorities: [
       { label: 'Alta', color: 'red' },
@@ -15,9 +16,11 @@ export default {
   mutations: {
     clearState(state) {
       state.data = {}
+      state.showAdd = true;
     },
     setTodo(state, todo) {
       state.data = todo;
+      state.showAdd = false;
     },
     setAll(state, list) {
       state.list = list;
@@ -32,6 +35,9 @@ export default {
     },
     priorities(state) {
       return state.priorities;
+    },
+    showAdd(state) {
+      return state.showAdd;
     }
   },
   actions: {

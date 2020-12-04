@@ -1,6 +1,5 @@
 <template>
-  <v-container id="todo" fluid tag="section">
-    <!-- <TodoForm /> -->
+  <v-container id="todo">
     <router-view/>
     <TodoList />
   </v-container>
@@ -9,8 +8,7 @@
 <script>
 export default {
   components: {
-    TodoList: () => import("./components/TodoList"),
-    // TodoForm: () => import("./components/TodoForm"),
+    TodoList: () => import("./components/TodoList")
   },
 };
 </script>

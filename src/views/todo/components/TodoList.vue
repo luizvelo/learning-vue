@@ -1,56 +1,66 @@
 <template>
+
   <v-container id="todo-list">
-    <v-row align="end">
+
+    <v-row align="start">
       <v-col align="end">
         <v-btn color="success" @click="$router.push('/todo/add')"
           >Adicionar</v-btn
         >
       </v-col>
     </v-row>
-    <v-data-table
-      :headers="headers"
-      :items="todoList"
-      :items-per-page="10"
-      class="elevation-1"
-    >
-      <template v-slot:[`item.description`]="{ item }">
-        <span v-bind:class="{ 'text-decoration-line-through': item.completed }"
-          >{{ item.description }}
-        </span>
-      </template>
 
-      <template v-slot:[`item.createdAt`]="{ item }">
-        <span>{{ item.createdAt | dateFormat }}</span>
-      </template>
-
-      <template v-slot:[`item.actions`]="{ item }">
-        <v-icon
-          small
-          class="mr-2"
-          @click="$router.push(`todo/${item.id}/edit`)"
+    <v-row>
+      <v-col>
+        <v-data-table
+          :headers="headers"
+          :items="todoList"
+          :items-per-page="5"
+          class="elevation-1"
         >
-          mdi-pencil
-        </v-icon>
-        <v-icon color="error" small @click="excluir(item)"> mdi-delete </v-icon>
-      </template>
+          <template v-slot:[`item.description`]="{ item }">
+            <span
+              v-bind:class="{ 'text-decoration-line-through': item.completed }"
+              >{{ item.description }}
+            </span>
+          </template>
 
-      <template v-slot:[`item.priority`]="{ item }">
-        <v-chip :color="getColor(item)" dark>
-          {{ item.priority }}
-        </v-chip>
-      </template>
+          <template v-slot:[`item.createdAt`]="{ item }">
+            <span>{{ item.createdAt | dateFormat }}</span>
+          </template>
 
-      <template v-slot:[`item.checkbox`]="{ item }">
-        <v-simple-checkbox
-          @click="
-            edit(item);
-            save();
-          "
-          color="primary"
-          v-model="item.completed"
-        ></v-simple-checkbox>
-      </template>
-    </v-data-table>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon
+              small
+              class="mr-2"
+              @click="$router.push(`todo/${item.id}/edit`)"
+            >
+              mdi-pencil
+            </v-icon>
+            <v-icon color="error" small @click="excluir(item)">
+              mdi-delete
+            </v-icon>
+          </template>
+
+          <template v-slot:[`item.priority`]="{ item }">
+            <v-chip :color="getColor(item)" dark>
+              {{ item.priority }}
+            </v-chip>
+          </template>
+
+          <template v-slot:[`item.checkbox`]="{ item }">
+            <v-simple-checkbox
+              @click="
+                edit(item);
+                save();
+              "
+              color="primary"
+              v-model="item.completed"
+            ></v-simple-checkbox>
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -76,6 +86,7 @@ export default {
   computed: {
     ...mapGetters("todo", {
       todoList: "todos",
+      
     }),
   },
   methods: {
