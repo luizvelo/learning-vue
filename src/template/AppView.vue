@@ -1,16 +1,16 @@
 <template>
   <v-main>
+    <base-message />
     <router-view />
-    <!-- <Footer /> -->
   </v-main>
 </template>
 
 <script>
-  export default {
-    name: 'AppView',
-
-    components: {
-      // Footer: () => import('./Footer'),
-    },
-  }
+export default {
+  name: "AppView"
+};
 </script>
+
+<style scoped>
+
+</style>
