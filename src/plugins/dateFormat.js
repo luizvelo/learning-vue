@@ -5,6 +5,6 @@ Vue.filter('dateFormat', function (value) {
   console.log(value);
   if (value) {
     return moment(String(value))
-      .format('MM/DD/YYYY hh:mm')
+      .format('MM/DD/YYYY HH:mm')
   }
 });

@@ -3,7 +3,7 @@ import axios from 'axios';
 import store from '../store';
 
 export const http = axios.create({
-  baseURL: 'https://learning-vue-a81ea-default-rtdb.fisrebaseio.com/'
+  baseURL: 'https://learning-vue-a81ea-default-rtdb.firebaseio.com/'
 })
 
 Vue.use({
@@ -12,7 +12,13 @@ Vue.use({
     Vue.prototype.$http = http;
 
     Vue.prototype.$http.interceptors.request.use(req => {
+
+      if (req.method === 'post') {
+        req.data = { createdAt: new Date(), ...req.data }
+      }
+
       return req;
+
     }, (error) => {
 
       if (error) {

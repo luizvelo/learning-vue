@@ -38,6 +38,21 @@ export default {
     },
     showAdd(state) {
       return state.showAdd;
+    },
+    countLowPriority(state) {
+      return state.list.filter((v) => {
+        return v.priority == 'Baixa';
+      }).length
+    },
+    countNormalPriority(state) {
+      return state.list.filter((v) => {
+        return v.priority == 'Normal';
+      }).length
+    },
+    countHighPriority(state) {
+      return state.list.filter((v) => {
+        return v.priority == 'Alta';
+      }).length
     }
   },
   actions: {
