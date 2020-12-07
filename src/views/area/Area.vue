@@ -1,7 +1,7 @@
 <template>
   <v-container id="area" fluid tag="section">
-    <router-view />
     <Navbar />
+    <router-view />
   </v-container>
 </template>
 

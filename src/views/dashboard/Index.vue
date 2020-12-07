@@ -8,6 +8,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+
 export default {
   name: "DashboardIndex",
   created() {

@@ -1,9 +1,9 @@
 <template>
   <v-container id="navbar">
-    <v-tabs fixed-tabs centered v-model="tab">
-      <v-tabs-slider></v-tabs-slider>
-      <v-tab @click="changeNavbar(1)">Componente 1</v-tab>
-      <v-tab @click="changeNavbar(2)">Componente 2</v-tab>
+    <v-tabs grow v-model="active_tab">
+      <v-tab v-for="tab of tabs" :key="tab.id" @click="changeNavbar(tab.id)">
+        {{ tab.name }}
+      </v-tab>
     </v-tabs>
   </v-container>
 </template>
@@ -13,14 +13,27 @@ export default {
   name: "Navbar",
   data() {
     return {
-      tab: null,
-      text: "NAVBAR",
+      active_tab: 0,
+      tabs: [
+        { id: 1, name: "Component 1" },
+        { id: 2, name: "Component 2" },
+      ],
     };
   },
+  mounted() {
+    this.active_tab = this.getTabRoute;
+  },
+  computed: {
+    getTabRoute() {
+      const paths = this.$route.fullPath.split("/");
+      const lastPath = paths[paths.length - 1];
+      return lastPath - 1;
+    },
+  },
   methods: {
-    changeNavbar(index) {
-      this.$router.push(`/area/comp${index}`);
-      console.log(`/comp${index}`);
+    changeNavbar(id) {
+        let route = `/area/comp/${id}`;
+        this.$router.push(route);
     },
   },
 };

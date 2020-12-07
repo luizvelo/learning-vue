@@ -1,18 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
-
-// plugins
-import './plugins/base'
-import './plugins/axios';
-import './plugins/dateFormat';
-import vuetify from './plugins/vuetify';
-
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import i18n from './i18n'
 
-
+// plugins
+import './plugins/axios'
+import './plugins/dateFormat'
+import './plugins/base'
+import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
