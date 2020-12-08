@@ -1,33 +1,43 @@
 <template>
   <v-container id="navbar">
     <v-tabs grow v-model="getActiveTab">
-      <v-tab v-for="tab of getTabs" :key="tab.id" @click="changeNavbar(tab)">{{ tab.name }}</v-tab>
+      <v-tab
+        v-for="tab of getTabs"
+        :key="tab.id"
+        @click="changeNavbar(tab)"
+        @change="getTab(tab)"
+      >{{ tab.name }}</v-tab>
     </v-tabs>
   </v-container>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Navbar",
   data() {
-    return {
-      // active_tab: 0,
-      // tabs: [
-      //   { id: 1, name: "Dados" },
-      //   { id: 2, name: "Foto" },
-      // ],
-    };
+    return {};
   },
-  mounted() {
-    this.getActiveTab = this.getTabRoute;
+  created() {
+    const i = this.getTabRoute;
+    if (i === 1) {
+      this.getTab({ id: i });
+    } else {
+      this.getActiveTab = this.getTabRoute;
+    }
   },
   computed: {
     ...mapGetters("area", {
       getTabs: "getTabs",
       getActiveTab: "getActiveTab",
     }),
+    area: {
+      get() {
+        return this.getActiveTab;
+      },
+      set() {},
+    },
     getTabRoute() {
       const paths = this.$route.fullPath.split("/");
       const lastPath = paths[paths.length - 1];
@@ -45,6 +55,9 @@ export default {
 
       this.$router.push(route);
     },
+    ...mapActions("area", {
+      getTab: "changeActiveTab",
+    }),
   },
 };
 </script>

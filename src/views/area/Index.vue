@@ -3,6 +3,7 @@
     <AppBar />
     <Drawer />
     <AppView />
+    <Footer />
   </v-app>
 </template>
 
@@ -14,6 +15,7 @@ export default {
     AppBar: () => import("../../template/AppBar"),
     Drawer: () => import("../../template/Drawer"),
     AppView: () => import("../../template/AppView"),
+    Footer: () => import("../../template/Footer"),
   },
 
   data: () => ({

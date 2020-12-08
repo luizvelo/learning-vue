@@ -45,16 +45,6 @@ export default {
     navigate() {
       let route = `/area/comp/2`;
       this.$router.push(route);
-
-      // const paths = this.$route.fullPath.split("/");
-      // const lastPath = paths[paths.length - 1];
-
-      // if (Number(lastPath) === id) {
-      //   return;
-      // } else {
-      //   let route = `/area/comp/${id}`;
-      //   this.$router.push(route);
-      // }
     }
   },
 };

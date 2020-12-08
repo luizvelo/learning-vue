@@ -27,6 +27,9 @@ export default {
         verFoto(state, item) {
             state.data = item;
             state.active_tab = 1;
+        },
+        setIndexTab(state, tab) {
+            state.active_tab = tab.id - 1;
         }
     },
     getters: {
@@ -51,6 +54,9 @@ export default {
             setTimeout(() => {
                 commit('verFoto', item)
             }, 1000)
+        },
+        changeActiveTab({ commit }, tab) {
+            commit("setIndexTab", tab)
         }
     }
 }

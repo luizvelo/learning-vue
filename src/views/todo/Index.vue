@@ -13,7 +13,7 @@ export default {
   components: {
     AppBar: () => import("../../template/AppBar"),
     Drawer: () => import("../../template/Drawer"),
-    AppView: () => import("../../template/AppView"),
+    AppView: () => import("../../template/AppView")
   },
 
   data: () => ({

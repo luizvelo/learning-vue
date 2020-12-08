@@ -1,25 +1,26 @@
 <template>
-  <v-footer id="footer">
-    <v-container>
-      footer
-    </v-container>
-  </v-footer>
+  <footer class="footer">
+    <span>
+      Copyrigth
+      <strong>Gabriel Jaques</strong> © 2020
+    </span>
+  </footer>
 </template>
 
 <script>
 export default {
   name: "Footer",
-
-  data: () => ({
-  }),
 };
 </script>
 
-<style lang="sass">
-#footer
-  a
-    font-size: .825rem
-    font-weight: 500
-    text-decoration: none
-    text-transform: uppercase
+<style>
+.footer {
+  grid-area: footer;
+  background-color: #ddd;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
 </style>
