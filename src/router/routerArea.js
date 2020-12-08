@@ -10,12 +10,12 @@ export default [
                 component: () => import('../views/area/Area'),
                 children: [
                     {
-                        name: 'Componente 1',
+                        name: 'Lista',
                         path: 'comp/1',
                         component: () => import('../views/area/pages/Component1')   
                     },
                     {
-                        name: 'Componente 2',
+                        name: '',
                         path: 'comp/2',
                         component: () => import('../views/area/pages/Component2')
                     }

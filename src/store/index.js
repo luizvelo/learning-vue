@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 // store modules
 import todo from './modules/todo';
+import area from './modules/area';
 
 Vue.use(Vuex)
 
@@ -42,6 +43,7 @@ const store = new Vuex.Store({
   },
   modules: {
     todo,
+    area
   }
 })
 

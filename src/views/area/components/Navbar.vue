@@ -1,29 +1,33 @@
 <template>
   <v-container id="navbar">
-    <v-tabs grow v-model="active_tab">
-      <v-tab v-for="tab of tabs" :key="tab.id" @click="changeNavbar(tab.id)">
-        {{ tab.name }}
-      </v-tab>
+    <v-tabs grow v-model="getActiveTab">
+      <v-tab v-for="tab of getTabs" :key="tab.id" @click="changeNavbar(tab)">{{ tab.name }}</v-tab>
     </v-tabs>
   </v-container>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Navbar",
   data() {
     return {
-      active_tab: 0,
-      tabs: [
-        { id: 1, name: "Component 1" },
-        { id: 2, name: "Component 2" },
-      ],
+      // active_tab: 0,
+      // tabs: [
+      //   { id: 1, name: "Dados" },
+      //   { id: 2, name: "Foto" },
+      // ],
     };
   },
   mounted() {
-    this.active_tab = this.getTabRoute;
+    this.getActiveTab = this.getTabRoute;
   },
   computed: {
+    ...mapGetters("area", {
+      getTabs: "getTabs",
+      getActiveTab: "getActiveTab",
+    }),
     getTabRoute() {
       const paths = this.$route.fullPath.split("/");
       const lastPath = paths[paths.length - 1];
@@ -31,9 +35,15 @@ export default {
     },
   },
   methods: {
-    changeNavbar(id) {
-        let route = `/area/comp/${id}`;
-        this.$router.push(route);
+    changeNavbar(tab) {
+      let route;
+      if (tab.name === "Dados") {
+        route = `/area/comp/1`;
+      } else {
+        route = `/area/comp/2`;
+      }
+
+      this.$router.push(route);
     },
   },
 };
