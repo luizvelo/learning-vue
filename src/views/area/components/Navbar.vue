@@ -3,9 +3,10 @@
     <v-tabs grow v-model="getActiveTab">
       <v-tab
         v-for="tab of getTabs"
+        :disabled="tab.disabled"
         :key="tab.id"
         @click="changeNavbar(tab)"
-        @change="getTab(tab)"
+        @change="changeActiveTab(tab)"
       >{{ tab.name }}</v-tab>
     </v-tabs>
   </v-container>
@@ -22,7 +23,7 @@ export default {
   created() {
     const i = this.getTabRoute;
     if (i === 1) {
-      this.getTab({ id: i });
+      this.changeActiveTab({ id: i });
     } else {
       this.getActiveTab = this.getTabRoute;
     }
@@ -48,7 +49,11 @@ export default {
     changeNavbar(tab) {
       let route;
       if (tab.name === "Dados") {
+        // const paths = this.$route.fullPath.split("/");
+        // const lastPath = paths[paths.length - 1];
+        // if (this.getActiveTab === lastPath) { return; }
         route = `/area/comp/1`;
+        this.changeDisableTabFoto();
       } else {
         route = `/area/comp/2`;
       }
@@ -56,7 +61,8 @@ export default {
       this.$router.push(route);
     },
     ...mapActions("area", {
-      getTab: "changeActiveTab",
+      changeActiveTab: "changeActiveTab",
+      changeDisableTabFoto: "changeDisableTabFoto",
     }),
   },
 };

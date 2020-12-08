@@ -2,15 +2,13 @@
   <div class="areaList">
     <v-row>
       <v-col>
-        <v-data-table :headers="headers" :items="areaList" :items-per-page="5" class="elevation-1">
+        <v-data-table dark :headers="headers" :items="areaList" :items-per-page="5" class="elevation-1">
           <template v-slot:[`item.dsAlien`]="{ item }">
-            <span
-              v-bind:class="{ 'text-decoration-line-through': item.completed }"
-            >{{ item.name }}</span>
+            <strong><b>{{ item.name }}</b></strong>
           </template>
 
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="verFoto(item);navigate();">mdi-eye</v-icon>
+            <v-icon color="green" small class="mr-2" @click="verFoto(item);navigate();">mdi-eye</v-icon>
           </template>
         </v-data-table>
       </v-col>
@@ -28,7 +26,7 @@ export default {
       headers: [
         { text: "ID", value: "id" },
         { text: "Nome", value: "name" },
-        { text: "Ver imagem", value: "actions", sortable: false },
+        { text: "Detalhe", value: "actions", sortable: false },
       ]
     };
   },
